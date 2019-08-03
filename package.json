@@ -1,0 +1,27 @@
+{
+  "name": "sql_library_manager-v1",
+  "version": "1.0.0",
+  "description": "An application for a local library to help manage their collection of books.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/garcia50/sql_library_manager-v1.git"
+  },
+  "author": "Luis Garcia",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/garcia50/sql_library_manager-v1/issues"
+  },
+  "homepage": "https://github.com/garcia50/sql_library_manager-v1#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "pug": "^2.0.4",
+    "sequelize": "^5.12.2",
+    "sequelize-cli": "^5.5.0",
+    "sqlite3": "^4.0.9"
+  }
+}
