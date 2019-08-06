@@ -1,0 +1,15 @@
+extends layout.pug
+
+block content
+  h1 Book Info
+  p
+    a(class='button' href='../new_book') Create New Book
+
+  table(style='width:100%', border='1')
+    thead
+      each book in books
+        tr
+          th book.title
+          th book.author
+          th book.genre
+          th book.year
