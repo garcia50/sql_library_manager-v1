@@ -1,16 +1,17 @@
+'use strict';
 const express = require('express');
 const app = express();
 const path = require('path');
+const sequelize = require("./models").sequelize;
 
-// const db = require('./db');
-// const { Book } = db.models;
+const routes = require('./routes');
+const booksRoute = require('./routes/books');
+
+app.use(express.json());
 
 
 app.use('/static', express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'pug');
-  
-const routes = require('./routes');
-const booksRoute = require('./routes/books');
 
 app.use(routes);
 app.use('/books', booksRoute); 
@@ -31,7 +32,10 @@ app.use((err, req, res, next) => {
 
 
 
-app.listen(3000, () => console.log('App listening on port 3000!'));
+sequelize.sync().then(function() {
+  app.listen(3000, () => console.log('App listening on port 3000!'));
+})
+
 
 
 
