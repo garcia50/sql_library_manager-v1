@@ -1,9 +1,8 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const Book = sequelize.define('Book', {
+  const Books = sequelize.define('Book', {
     title: {
       type: DataTypes.STRING,
-      // allowNull: false,
       validate: {
         notEmpty: {
           msg: "Title is required"
@@ -12,8 +11,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     author: {
       type: DataTypes.STRING,
-      // allowNull: false,
-      validate: {
+          validate: {
         notEmpty: {
           msg: "Author is required"
         }
@@ -28,5 +26,6 @@ module.exports = (sequelize, DataTypes) => {
   // Book.associate = function(models) {
   //   // associations can be defined here
   // };
-  return Book;
-};
+  return Books;
+}
+

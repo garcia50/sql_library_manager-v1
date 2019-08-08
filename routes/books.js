@@ -40,22 +40,53 @@ const Book = require("../models").Book;
 // })); 
 
 //Setup projects path to render index pug view if no specific path is given
-router.get('/', (req, res) => {
-  res.render('index');
-});
+// router.get('/', (req, res) => {
+//   res.render('index');
+// });
+
+router.get('/', function(req, res) {
+  Book.findAll()
+  .then(function(books) {
+    res.render('index', { books: books });
+  });
+  });
+
+
 
 // router.get("/new", function(req, res, next) {
 router.get('/new', (req, res) => {
   console.log('reqqqqqqqq', req.body);
-  res.render('new_book');
+  res.render('new_book', { book: Book.build()} );
+  console.log('resssssss', res.body);
 })
 
+    // new Book({
+    //   title: req.body.title,
+    //   author: req.body.author,
+    //   genre: req.body.genre,
+    //   year: req.body.year
+    // })
+
+
 /* POST create book */
-router.post('/new', async (req, res, next) => {
-  console.log('reeeeeq', req.body);
-  const book = await Book.create(req.body);
-  res.redirect('/books/' + book.id);
+router.post('/new', function(req, res, next) {
+  console.log('postreeeeeq', req.body);
+  // const book = await Book.create(req.body);
+
+  Book.create(req.body)
+  .then(function(book) {
+      // you can now access the newly created task via the variable task
+      res.redirect('/books/' + book.id);
+      console.log('success');
+  })
+  .catch(function(err) {
+      // print the error details
+      res.render('error', err);
+      console.log(err, req.body.email);
+  });
 });
+
+
 
 // /* GET / retrieve book to update */
 // router.get('/:id/edit', async (req, res, next) => {
@@ -78,3 +109,17 @@ router.post('/new', async (req, res, next) => {
 // });
 
 module.exports = router;
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -8,6 +8,8 @@ const routes = require('./routes');
 const booksRoute = require('./routes/books');
 
 app.use(express.json());
+var bodyParser = require('body-parser');
+app.use(bodyParser.json());
 
 
 app.use('/static', express.static(path.join(__dirname, 'public')));
@@ -26,7 +28,8 @@ app.use((req, res, next) => {
 
 app.use((err, req, res, next) => {
   res.locals.error = err;
-  res.status(err.status);
+  const status = err.status || 500;
+  res.status(status);
   res.render('error');
 });
 
