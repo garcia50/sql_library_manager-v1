@@ -1,9 +1,19 @@
 extends layout.pug
 
 block content
-  h1 MAIN Books
+  h1 All Books
   p
     a(class='button' href='../books/new') Create New Book
+
+  table(style='width:100%', border='1')
+    thead
+      each book in books
+        tr
+          th 
+            a(href='books/' + book.id) #{book.dataValues.title}
+          th #{book.dataValues.author}
+          th #{book.dataValues.genre}
+          th #{book.dataValues.year}
 
     
 
