@@ -3,10 +3,8 @@ const express = require('express');
 const router  = express.Router();
 const Book = require("../models").Book;
 
-
 //Setup projects path to render index pug view if no specific path is given
 router.get('/', function(req, res) {
-  // Book.findAll({limit: 5})
   Book.findAll()
   .then(function(books) {
     res.render('index', { books: books });
@@ -26,9 +24,10 @@ router.post('/new', function(req, res) {
     res.redirect('/books');
     console.log('success');
   })
+  //catches any error
   .catch(function(err) {
     // print the error details
-    res.render('new_book', {
+      res.render('new_book', {
       book: Book.build(req.body),
       errors: err.errors
     });
@@ -56,15 +55,16 @@ router.post('/:id', (req, res) => {
   Book.findByPk(id) 
   .then(function(book){
     if (book) {
-      book.update(req.body);
+      return book.update(req.body);
     }
   })
   .then(function(book){
     res.redirect("/books");
   })
+  //catches any error
   .catch(function(err) {
     // print the error details
-    res.render('book_detail', {
+      res.render('book_detail', {
       book: Book.build(req.body),
       errors: err.errors
     });
@@ -84,12 +84,13 @@ router.post('/:id/delete', (req, res) => {
   .then(function() {
     res.redirect('/books');
   })
+  //catches any error
   .catch(function(err) {
     res.sendStatus(500);
   });
 });
 
-
+//Expose router as a module
 module.exports = router;
 
 
